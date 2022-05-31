@@ -4,19 +4,29 @@ async function main() {
     let prompt = "Please enter your name, or 'Exit' to quit: "
     let name = await input(prompt);
     document.getElementById("input").innerHTML = "hello" + input;
+
     var myCar = new Car("Ford", "Mustang", "8", "V", "Auto",0,false); //instantiate the car
+
     console.log("Instantiated");
-    myCar.odometer = 0;
-    myCar.running = false;
-    startEngine();  //Turn on the engine
+
+    //Turn on the engine
+    myCar.startEngine();  
     console.log("Started");
-    Drive(100);  //Drive 100km
+
+    //Drive 100km
+    myCar.drive(100);  
     console.log("100");
-    Drive(50);  //Drive 50 km
+
+    //Drive 50 km
+    myCar.drive(50);  
     console.log("50");
-    stopEngine(); //Turn off the engine
+
+    //Turn off the engine
+    myCar.stopEngine(); 
     console.log("Stopped");
-    console.log("Car went " + myCar.odometer + "km");  //Output the odometer reading to the console
+
+    //Output the odometer reading to the console
+    console.log("Car went " + myCar.odometer + "km");  
 
     while (name != "Exit") 
     {
@@ -26,7 +36,8 @@ async function main() {
 }
 
 class Car {
-    constructor(make, model, engineCylCount, engineCylConfig, transmissionType, odometer, running){
+
+  constructor(make, model, engineCylCount, engineCylConfig, transmissionType, odometer, running) {
         this.make = make;
         this.model = model;
         this.engineCylCount = engineCylCount;
@@ -34,55 +45,46 @@ class Car {
         this.transmissionType = transmissionType;
         this.odometer = odometer;
         this.running = running;
+  }
+
+  engine(cylCount, cylConfig, running) {
+    this.cylCount = cylCount;
+    this.cylConfig = cylConfig;
+  }
+
+  startEngine() {    
+
+    if (this.running == false) {
+      this.running = true;
+      //document.getElementById("Started").innerText = "Car is on!"; 
+    } else {      
+      throw "Unable to start engine: The car is already running";
     }
-    //    transmission(type, odometer) {
-    //        this.type = type;
-    //      this.odometer = odometer(0);
-    //    }
-    
-        engine(cylCount, cylConfig, running) {
-            this.cylCount = cylCount;
-            this.cylConfig = cylConfig;
-       
-        }
-    };
+  }; 
+
+  stopEngine () {
+      
+    if (this.running == true) {
+      this.running = false;
+      //document.getElementById("Stopped").innerText = "Car is off!";
+    }
+  };
+
+  drive (distance) {
+      
+    this.odometer = this.odometer + distance;
+    //if (myCar.odometer == 50);
+    //console.log("Car went 50km");
+  
+    //document.getElementById("car").innerHTML = "My car is a" + Carx();
+    //document.getElementById("Engine is on.").innerHTML = myCar.startengine();
+      
+  };
+};
  //var myCar = new Car("Ford", "Mustang", "8", "V", "Auto");
  //this.myCar = myCar;
 
-function startEngine(){    
-    try{
-    if (myCar.running == false) throw "off";
-    myCar.running = true;
-       document.getElementById("Started") = "Car is on!"; 
-   }
-   catch(err){
-    console.log("myCar" + err);
-   }
-}; 
-function stopEngine (){
-    try{
-    if (myCar.running == true);
-    myCar.running = false;
-    document.getElementById("Stopped").innerText = "Car is off!";
-    }
-    catch(err){
-        console.log("myCar" + err);
-    }};
 
-
-function Drive (Distance){
-    try{
-        myCar.Odometer = myCar.Odometer + Distance
-        //if (myCar.odometer == 50);
-        //console.log("Car went 50km");
-
-    //document.getElementById("car").innerHTML = "My car is a" + Carx();
-    //document.getElementById("Engine is on.").innerHTML = myCar.startengine();
-    }
-    catch(err){
-        alert("Broken");
-    }
-};
 
    // constructor ( distance ) {
      //   if ( x in distance == 50);
